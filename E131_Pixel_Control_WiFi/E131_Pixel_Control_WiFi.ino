@@ -15,8 +15,8 @@
 //the multicast ip address should correspond to the desired universe/subnet
 
 
-char ssid[] = "Rue Paw";  //  your network SSID (name)
-char pass[] = "phfops@2014";       // your network password
+char ssid[] = "SSID";  //  your network SSID (name)
+char pass[] = "password";       // your network password
 IPAddress ip(192, 168, 1, 120);  //IP address of ethernet shield
 
 
