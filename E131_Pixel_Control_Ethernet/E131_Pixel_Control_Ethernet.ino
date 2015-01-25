@@ -36,7 +36,7 @@ int startPixel; //start pixel for each loop
 //the initial ip and MAC address will get changed by beginMulti
 //the multicast ip address should correspond to the desired universe/subnet
 
-byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0x2A, 0xBC}; //MAC address of ethernet shield
+byte mac[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; //MAC address of ethernet shield
 IPAddress ip(192, 168, 1, 120);  //IP address of ethernet shield
 
 
