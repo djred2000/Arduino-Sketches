@@ -1,2 +1,2 @@
 # Arduino-Sketches
-Various Arduino Sketches I've written 
+These sketches are for controlling RGB Pixels using the FastLED library.  
