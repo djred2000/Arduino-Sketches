@@ -1,0 +1,1 @@
+This sketch allows control of any pixels supported by the FastLED library via E1.31 (SACN). It requires an ethernet shield and uses the standard ethernet library included with the Arduino IDE.  It also allows for the reception of multiple universes so you can have more than 512 channels. 
