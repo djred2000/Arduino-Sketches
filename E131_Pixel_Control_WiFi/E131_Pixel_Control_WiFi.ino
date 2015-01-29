@@ -18,7 +18,6 @@ This sketch receives multiple universes.  It also runs a POST function each time
 #include <FastLED.h> //install latest version from here: https://github.com/FastLED/FastLED
                               
 // enter desired universe and subnet  (sACN first universe is 1)
-<<<<<<< HEAD
 #define DMX_SUBNET 0 //defualt subnet is 0. Should not need to be changed. 
 #define DMX_START_UNIVERSE 1 //first universe being used
 #define PIXELS_PER_UNIVERSE 170 //total number of pixels being user per universe.  Max is 170. 170 x 3 = 510 channels. 
@@ -37,21 +36,8 @@ int startPixel; //start pixel for each loop
 CRGB leds[NUM_LEDS]; //pixel array
 
 //WiFi Configuration
-char ssid[] = "Rue Paw";  //  your network SSID (name)
-char pass[] = "phfops@2014";       // your network password
-=======
-#define DMX_SUBNET 0
-#define DMX_UNIVERSE 1
-#define SACN_PORT 5568
-#define SACN_BUFFER_MAX 640
-
-//the initial ip and MAC address will get changed by beginMulti
-//the multicast ip address should correspond to the desired universe/subnet
-
-
 char ssid[] = "SSID";  //  your network SSID (name)
 char pass[] = "password";       // your network password
->>>>>>> origin/master
 IPAddress ip(192, 168, 1, 120);  //IP address of ethernet shield
 
 // buffers for receiving and sending data
