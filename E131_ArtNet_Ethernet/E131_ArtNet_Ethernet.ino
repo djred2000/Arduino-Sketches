@@ -32,14 +32,12 @@ This sketch also includes a power on self test function to make sure everything 
 #define ETHERNET_BUFFER_MAX 640
 #define ARTNET_ARTDMX 0x5000
 #define ARTNET_ARTPOLL 0x2000
-#define ARTNET_PORT 0x1936
-#define ARTNET_ADDRESS_OFFSET 18
-#define SACN_PORT 5568 //standard port 
-#define SACN_ADDRESS_OFFSET 126
-//E131 start address = 126 + actual start channel number
-#define GWTS_START_ADDRESS_E131 599 
-//ArtNet start address = 18 + actual start channel number
-#define GWTS_START_ADDRESS_ARTNET 467 
+#define ARTNET_PORT 0x1936 //standard port
+#define ARTNET_ADDRESS_OFFSET 17 //Byte 18 in the packet contains channel 1 values.  Offset is set to one prior. 
+#define E131_PORT 5568 //standard port 
+#define E131_ADDRESS_OFFSET 125 //Byte 126 in the packet contains channel 1 values. Offset is set to one prior. 
+#define GWTS_START_ADDRESS_E131 576 //126 plus actual start channel
+#define GWTS_START_ADDRESS_ARTNET 467 //126 plus actual start channel
 
 GWTS ears; //initialize GWTS Ears
 
@@ -54,7 +52,7 @@ int startPixel; //start pixel for each loop
 
 
 //network addresses
-byte mac[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+byte mac[] = {0x90, 0xA2, 0xDA, 0x0F, 0x2A, 0xBC};
 IPAddress ip(192, 168, 1, 120);
 
 // buffer
@@ -70,7 +68,7 @@ void setup()
 {
   Ethernet.begin(mac,ip);
   aUDP.begin(ARTNET_PORT);
-  suUDP.begin(SACN_PORT);
+  suUDP.begin(E131_PORT);
   Serial.begin(9600);
   FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS); //initialize pixels 
   POST(); //run power on self test function
@@ -78,8 +76,7 @@ void setup()
 }
 
 /* artDMXReceived checks the universe and subnet then
-   reads the first three dimmer levels and sets the
-   analog level of the output pins.                   */
+   outputs the data to FastLED and GWTS */
 
 void artDMXReceived(unsigned char* pbuff) 
 {
@@ -117,8 +114,7 @@ int artNetOpCode(unsigned char* pbuff)
 }
 
 /* sacnDMXReceived checks the universe and subnet then
-   reads the first three dimmer levels and sets the
-   analog level of the output pins.                   */
+   outputs the data to FastLED and GWTS  */
 
 void sacnDMXReceived(unsigned char* pbuff, int count) 
 {
@@ -128,15 +124,13 @@ void sacnDMXReceived(unsigned char* pbuff, int count)
       if ( pbuff[addressOffset] == 0 ) //start code must be 0
       {  
       currentE131Universe = pbuff[114];  //Byte 114 is the universe number in the packet
-      //Serial.print("Universe: ");
-      //Serial.println(pbuff[114]); //print universe number packet contains
       if ( currentE131Universe >= E131_START_UNIVERSE && currentE131Universe <= E131_START_UNIVERSE + UNIVERSE_COUNT ) //is the universe received equal to the start universe or within the universe count range 
       {
       startPixel = (currentE131Universe - E131_START_UNIVERSE) * PIXELS_PER_UNIVERSE; //set start channel based on universe received. Universe 1 would be 0. Universe 2 would be 170.
       channel = 1; //reset channel assignment to 1 each time through loop.
       for(int i = startPixel; i < startPixel + PIXELS_PER_UNIVERSE; i++) //loop for LED pixels
       {
-      leds[i] = CRGB(pbuff[SACN_ADDRESS_OFFSET + channel], pbuff[SACN_ADDRESS_OFFSET + (channel +1)], pbuff[SACN_ADDRESS_OFFSET + (channel +2)]); //assign channel values to pixels 
+      leds[i] = CRGB(pbuff[E131_ADDRESS_OFFSET + channel], pbuff[E131_ADDRESS_OFFSET + (channel +1)], pbuff[E131_ADDRESS_OFFSET + (channel +2)]); //assign channel values to pixels 
       channel +=channelwidth; //increase last channel number by channel width
       }
       }
@@ -160,7 +154,7 @@ int checkACNHeaders(unsigned char* messagein, int messagelength)
 
 /************************************************************************
 
-  The main loop checks for and reads packets from the three UDP ethernet
+  The main loop checks for and reads packets from the two UDP ethernet
   socket connections.  When a packet is recieved, it is checked to see if
   it is valid and then one of the DMXReceived functions is called, sending
   the DMX values to the output.
@@ -206,6 +200,7 @@ void loop()
   
 } //End loop
 
+//Power on self test function to make sure everything is connected properly. 
 void POST()
 {
 ears.set_colors(255,0,0,255,0,0);   //set ears to red
@@ -220,5 +215,6 @@ delay(1000);
 ears.set_colors(0,0,0,0,0,0);   //set ears to off
 FastLED.clear(); //clear pixels
 FastLED.show(); //update pixels 
+Serial.println("POST Complete");
 }
 
