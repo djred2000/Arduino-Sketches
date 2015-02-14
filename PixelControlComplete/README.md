@@ -2,4 +2,4 @@ This sketch allows for control of FastLED pixels and Disney Glow with the Show E
 
 The FastLED and GWTS libraries must be installed in the Arduino IDE.
 
-The sketch requires the ethernet shield. 
+This sketch requires the ethernet shield. 
