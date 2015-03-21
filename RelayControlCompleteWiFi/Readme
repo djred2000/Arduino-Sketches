@@ -1,0 +1,1 @@
+This sketch controls relays via Artnet or E1.31 using WiFi. This works best using an Arduino Mega 2560 and the official Arduino WiFi Shield. 
