@@ -1,1 +1,0 @@
-This Arduino sketch receives ArtNet or E1.31 (SACN) data and allows control of FastLED pixels or Disney Glow with the Show ears. This requires the ethernet shield. 
