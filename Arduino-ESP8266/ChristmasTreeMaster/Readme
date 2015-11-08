@@ -1,0 +1,1 @@
+These files run on an Arduino or Teensy. I have tested them on an Arduino Due and a Teensy 3.2. They receive data from the ESP8266 and output to LEDs via the FastLED library and Disney Glow with the Show Ears.
