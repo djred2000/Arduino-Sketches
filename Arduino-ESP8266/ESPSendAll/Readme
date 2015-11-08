@@ -1,0 +1,1 @@
+This code runs on the ESP8266 module and receives the E1.31 and ArtNet data and sends it out over the serial port to an Arduino or Teensy. You can use the ESP8266 plugin for the Arduino IDE and a USB FTDI serial adapter to connect to the ESP8266 chip. 
