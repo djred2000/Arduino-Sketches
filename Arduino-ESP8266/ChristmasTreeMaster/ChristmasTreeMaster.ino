@@ -6,7 +6,7 @@
 
 GWTS ears; //GWTS Instance
 
-//#define FASTLED_ALLOW_INTERRUPTS 0
+//General Definitions
 #define ledpin 13 //LED on board for monitoring
 #define BUFFER_SIZE 524 //size of data buffer to hold E1.31 and ArtNet data
 #define E131_ADDRESS_OFFSET 11 //byte 12 of the E1.31 packet contains channel 1 value
@@ -52,16 +52,16 @@ byte brightness; //brightness variable
 byte thishue; //for fill rainbow
 byte deltahue = 1; //for fill rainbow
 
-
 void setup() 
 {
 pinMode(ledpin, OUTPUT);  //pin 13 to let us know if we are receiving any data
 Serial.begin(250000); //USB serial port for monitoring/debuggins
-Serial1.begin(500000); //ESP8266 serial connection
+Serial1.begin(750000); //ESP8266 serial connection
 FastLED.addLeds<PIXELTYPE, DATA_PIN1, RGB>(leds, 0, NUM_LEDS_PER_STRIP); //pixel strip 1
 FastLED.addLeds<PIXELTYPE, DATA_PIN2, RGB>(leds, NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP); //pixel strip 2
 FastLED.addLeds<PIXELTYPE, DATA_PIN3, RGB>(leds, 2 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP); //pixel strip 3
 FastLED.addLeds<PIXELTYPE, DATA_PIN4, RGB>(leds, 3 * NUM_LEDS_PER_STRIP, 71); //pixel strip 4
+delay(10000);
 POST(); //Run power on self test function each time board boots 
 Serial.println("Setup Completed");
 }
@@ -79,7 +79,7 @@ if(getTime == true)
 //Reads serial data and determines what kind of data it is then processes it 
 if (Serial1.available()) 
 { 
-  currentcounter++;  //increase counter by 1 each time through
+ currentcounter++;  //increase counter by 1 each time through
  Serial1.readBytes(PacketStart,3); //Read 3 bytes and store them. Each packet has a 3 byte header. 
 
 //Data is E1.31   

@@ -1,23 +1,22 @@
-#define WAIT 50
-
 void E131Received(unsigned char* pbuff, int count) 
 {
     if (pbuff[11] == E131_START_CODE && pbuff[1] == 114 && pbuff[3] == 2) //data check to throw out bad data
     { 
-      /* Universe 1 */
+      
       if(pbuff[0] == 1) //byte 0 is universe number
       { 
+      Serial.println("Universe 1");
       Channel = 1; //reset channel assignment to 1 each time through loop.
       for(int i = 0; i < 171; i++) //pixels 0-170
       {
       leds[i] = CRGB(pbuff[E131_ADDRESS_OFFSET + Channel], pbuff[E131_ADDRESS_OFFSET + (Channel +1)], pbuff[E131_ADDRESS_OFFSET + (Channel + 2)]);
       Channel += ChannelWidth; //increase last channel number by channel width
-      } 
+      }
       }
       
-      /* Universe 2 */
       if(pbuff[0] == 2)
-      { 
+      {
+      Serial.println("Universe 2"); 
       Channel = 1; //reset channel assignment to 1 each time through loop.
       for(int i = 170; i < 341; i++) //pixels 170-340
       {
@@ -26,9 +25,9 @@ void E131Received(unsigned char* pbuff, int count)
       }  
       }
       
-      /* Universe 3 */
       if(pbuff[0] == 3) 
-      { 
+      {
+      Serial.println("Universe 3"); 
       Channel = 1; //reset channel assignment to 1 each time through loop.
       for(int i = 340; i < 372; i++) //pixels 340-371
       {

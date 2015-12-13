@@ -22,7 +22,7 @@ void TimeProcess(unsigned char* Buffer)
     Serial.print(minute(ActualTime));
     Serial.print(":");
     Serial.println(second(ActualTime));
-    previousMinute = minute(ActualTime);
+    previousMinute = ActualTime;
 }
 
 
