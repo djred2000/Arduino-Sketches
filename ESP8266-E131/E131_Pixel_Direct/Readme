@@ -1,0 +1,1 @@
+This sketch runs on a generic ESP8266 module and receives one universe of E1.31 data. It outputs to the FastLED library to drive many types of LEDs. 
