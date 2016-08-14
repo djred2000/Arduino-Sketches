@@ -1,0 +1,1 @@
+Load this file onto an ESP8266. I recommend a NodeMCU. It receives E1.31 and ArtNet data over WiFi and sends it out over the standard serial port at 2,000,000 bps.
