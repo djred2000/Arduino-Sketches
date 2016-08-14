@@ -1,0 +1,7 @@
+I recommend running this code on a Teensy 3.2. It will also run on an Arduino with slight modifications. It uses the FastLED library to drive pixels. I am using WS2811.  It receives data over Serial from an ESP8266 and then ouputs to LEDs. 
+
+Serial port 1 is used for connection to ESP8266.  Serial over the USB connection is used for debugging.
+
+I included standby pixel displays for when no data is being received. 
+
+I am using a DS1307 real time clock module to keep time and turn the standby functions on and off during certain hours of the day.
