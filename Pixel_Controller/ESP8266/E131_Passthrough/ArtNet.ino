@@ -1,6 +1,4 @@
-/*  artNetOpCode checks to see that the packet is actually Art-Net
-    and returns the opcode telling what kind of Art-Net message it is.  */
-
+//Simple check to verify data is Artnet. 
 int artNetOpCode(unsigned char* pbuff) 
 {
   String test = String((char*)pbuff);
@@ -11,7 +9,6 @@ int artNetOpCode(unsigned char* pbuff)
       return pbuff[9] *256 + pbuff[8];  //opcode lo byte first
     }
   }
-  
   return 0;
 }
 

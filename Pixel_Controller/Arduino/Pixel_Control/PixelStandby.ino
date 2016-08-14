@@ -1,18 +1,14 @@
-//Power on self test for pixels and ears
+//Power on self test. Runs each time board boots. 
 void POST() 
 {
    LEDS.showColor(CRGB(255, 0, 0)); //turn all pixels on red
-   ears.set_colors(255,0,0,255,0,0); //ears to red
    delay(1000);
    LEDS.showColor(CRGB(0, 255, 0)); //turn all pixels on green
-   ears.set_colors(0,255,0,0,255,0); //ears to green
    delay(1000);
    LEDS.showColor(CRGB(0, 0, 255)); //turn all pixels on blue
-   ears.set_colors(0,0,255,0,0,255); //ears to blue
    delay(1000);
    FastLED.clear(); //clear pixels
    FastLED.show();
-   ears.set_colors(0,0,0,0,0,0); //ears off
    Serial.println("POST Completed");
 }
 
@@ -26,7 +22,7 @@ currentProgram = 1;  //restart at 1
 
 ActualTime = RTC.get(); //Get current time from RTC each time the Standby function is called
 
- if(hour(ActualTime) >= 2 && hour(ActualTime) <= 13) //hour is between 9PM and 8AM (overnight) EST. We are GMT-5. We want the pixels off. 
+ if(hour(ActualTime) >= 1 && hour(ActualTime) <= 11) //hour is between 9PM and 8AM (overnight) EST. We are GMT-5. We want the pixels off. 
   {
     FastLED.clear();
     FastLED.show();
@@ -76,8 +72,8 @@ for(ledNumber = 0; ledNumber < NUM_LEDS; ledNumber++)
 {
 leds[ledNumber] = CHSV(random_color, 255, brightness);
 }
-FastLED.show(); 
-delay(random_delay); 
+FastLED.show();
+FastLED.delay(random_delay); 
 }
 
 for(brightness = 255; brightness > 0; brightness--)
@@ -86,8 +82,8 @@ for(ledNumber = 0; ledNumber < NUM_LEDS; ledNumber++)
 {
 leds[ledNumber] = CHSV(random_color, 255, brightness);
 }
-FastLED.show(); 
-delay(random_delay); 
+FastLED.show();
+FastLED.delay(random_delay); 
 }
 } //end simple fade
 
@@ -101,7 +97,7 @@ for(ledNumber = 0; ledNumber < NUM_LEDS; ledNumber++)
 leds[ledNumber] = CHSV( random_color, 255, 255);
 FastLED.show();
 leds[ledNumber] = CHSV( random_color, 255, 0);
-delay(50);
+FastLED.delay(50);
 }
 random_color = random8(0,255);
 for(ledNumber = NUM_LEDS-1; ledNumber > 0; ledNumber--)
@@ -109,7 +105,7 @@ for(ledNumber = NUM_LEDS-1; ledNumber > 0; ledNumber--)
 leds[ledNumber] = CHSV( random_color, 255, 255);
 FastLED.show();
 leds[ledNumber] = CHSV( random_color, 255, 0);
-delay(50);
+FastLED.delay(50);
 }   
 } //end color chase
 
@@ -122,14 +118,14 @@ for(ledNumber = 0; ledNumber < NUM_LEDS; ledNumber++)
 { 
 leds[ledNumber] = CHSV( random_color, 255, 255);
 FastLED.show();
-delay(30);
+FastLED.delay(30);
 }
 random_color = random8(0,255);
 for(ledNumber = NUM_LEDS-1; ledNumber > 0; ledNumber--)
 { 
 leds[ledNumber] = CHSV( random_color, 255, 255);
 FastLED.show();
-delay(30);
+FastLED.delay(30);
 }  
 } //end color draw
 
@@ -180,12 +176,12 @@ void cylon()
     // Set the i'th led to red 
     leds[i] = CHSV(hue++, 255, 255);
     // Show the leds
-    FastLED.show(); 
+    FastLED.show();
     // now that we've shown the leds, reset the i'th led to black
     //leds[i] = CRGB::Black;
     fadeall();
     // Wait a little bit before we loop around and do it again
-    delay(10);
+    FastLED.delay(10);
   }
  
   // Now go in the other direction.  
@@ -199,6 +195,6 @@ void cylon()
     //leds[i] = CRGB::Black;
     fadeall();
     // Wait a little bit before we loop around and do it again
-    delay(10);
+    FastLED.delay(10);
   }
 }
