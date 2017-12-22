@@ -5,8 +5,8 @@ const int BUFFER_SIZE = 638;
 unsigned char PacketBuffer[BUFFER_SIZE]; //buffer to hold incoming packet data
 
 //WiFi Setup
-char ssid[] = "DJRED24N";
-char pass[] = "phfops@2015";
+char ssid[] = "********";
+char pass[] = "*******";
 IPAddress local_ip(192, 168, 1, 14);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
