@@ -2,7 +2,7 @@ void E131Received()
 {
   if(DataBuffer[114] >= E131StartUniverse && DataBuffer[114] <= E131UniverseCount) //first make sure the universe received is one we want to process
   {
-
+  
   if(DataBuffer[114] == E131StartUniverse) //if current universe is the first in the series, reset all values
   {
     StartLED = 0;
@@ -10,7 +10,7 @@ void E131Received()
     E131CurrentUniverse = E131StartUniverse;
   }
   
-if(DataBuffer[114] == E131CurrentUniverse)
+if(DataBuffer[114] == E131CurrentUniverse && DataBuffer[108] == 100 && DataBuffer[115] == 114 && DataBuffer[116] == 9 && DataBuffer[118] == 161) //108 = priority, 115 = protocol flag, 116 = length, 118 = address and data type
 {
       Channel = 1; //reset channel assignment to 1 each time through loop.
       for(int i = StartLED; i < EndLED; i++) //set values for 170 pixels. Max number per universe. 
@@ -18,12 +18,13 @@ if(DataBuffer[114] == E131CurrentUniverse)
       leds[i] = CRGB(DataBuffer[E131_ADDRESS_OFFSET + Channel], DataBuffer[E131_ADDRESS_OFFSET + (Channel +1)], DataBuffer[E131_ADDRESS_OFFSET + (Channel + 2)]);
       Channel += ChannelWidth; //increase last channel number by channel width
       }
+      
 }    
       if(DataBuffer[114] == E131UniverseCount) //we've processed all universes now send data to pixels 
       {
-      LEDS.show();
-      Serial.print("FastLED FPS: ");
-      Serial.println(FastLED.getFPS()); //print frame rate
+      FastLED.show();
+      //Serial.print("FastLED FPS: ");
+      //Serial.println(FastLED.getFPS());
       }
       else //not all universes have been received. Move on to the next one. 
       {
