@@ -5,9 +5,9 @@ const int BUFFER_SIZE = 638;
 unsigned char PacketBuffer[BUFFER_SIZE]; //buffer to hold incoming packet data
 
 //WiFi Setup
-char ssid[] = "RuePaw";
-char pass[] = "ritas4life89";
-IPAddress local_ip(192, 168, 1, 14);
+char ssid[] = "*****"; //enter your WiFi SSID
+char pass[] = "*****"; //enter your WiFi Password
+IPAddress local_ip(192, 168, 1, 14); //Set IP address information as needed
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 const int E131Port = 5568;
