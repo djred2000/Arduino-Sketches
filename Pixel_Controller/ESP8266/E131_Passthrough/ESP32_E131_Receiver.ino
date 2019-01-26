@@ -11,9 +11,9 @@ unsigned long StandbyDelay = 1000;
 unsigned long currentDelay;
 
 //WiFi Setup
-char ssid[] = "RuePaw";
-char pass[] = "ritas4life89";
-IPAddress local_ip(192, 168, 1, 14);
+char ssid[] = "*****"; //WiFi SSID
+char pass[] = "*****"; //WiFi Password
+IPAddress local_ip(192, 168, 1, 14); //Static IP information
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 const int E131Port = 5568;
