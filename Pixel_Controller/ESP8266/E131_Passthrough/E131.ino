@@ -7,3 +7,19 @@ int checkE131Headers(unsigned char* messagein, int messagelength)
   }
   return 0;
 }
+
+void ConnectionCompleted()
+{
+  digitalWrite(2, HIGH);
+  delay(250);
+  digitalWrite(2, LOW);
+  delay(250);
+  digitalWrite(2, HIGH);
+  delay(250);
+  digitalWrite(2, LOW);
+  delay(250);
+  digitalWrite(2, HIGH);
+  delay(250);
+  digitalWrite(2, LOW);
+  delay(250);
+}
