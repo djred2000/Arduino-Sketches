@@ -6,6 +6,4 @@ The OctoWS2811 parallel output is being used to drive 8 output pins.
 
 I included standby pixel displays for when no data is being received. 
 
-I am using a DS1307 real time clock module to keep time and turn the standby functions on and off during certain hours of the day.
-
 You will need all files for this to compile properly and use the Arduino IDE. 
